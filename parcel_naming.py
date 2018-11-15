@@ -31,7 +31,7 @@
 #   address = {Department of Neuroscience, Baylor College of Medicine, Houston,
 #       TX, United States},
 #   pmid = {21769991},
-# } 
+# }
 #
 # Documentation, updated source code and other information can be found at the
 # NITRC web page: http://www.nitrc.org/projects/cluster_roi/ and on github at
@@ -41,7 +41,7 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -53,7 +53,7 @@
 
 # this scripts requires NumPy (numpy.scipy.org), and NiBabel
 # (http://nipy.sourceforge.net/nibabel/) to be installed in a directory that is
-# accessible through PythonPath 
+# accessible through PythonPath
 import nibabel as nb
 import numpy as np
 from collections import defaultdict
@@ -146,21 +146,26 @@ def main():
     # This is where the atlases are specified in the format
     # "ATLAS NAME":("path to label file","path to atlas.nii")
     atlas_cfg={\
-    "Talairach Daemon":("talairach_labels.csv",\
+    "Talairach Daemon":("atlas_labels/talairach_labels.csv",\
       os.path.join(fsl_path,\
       "data/atlases/Talairach/Talairach-labels-2mm.nii.gz")),\
-    "HarvardOxford Cortical":("harvardoxford_cortical_labels.csv",\
+    "HarvardOxford Cortical":("atlas_labels/harvardoxford_cortical_labels.csv",\
       os.path.join(fsl_path,\
       "data/atlases/HarvardOxford/HarvardOxford-cort-maxprob-thr25-2mm.nii.gz")),\
-    "HarvardOxford Subcortical":("harvardoxford_subcortical_labels.csv",\
+    "HarvardOxford Subcortical":("atlas_labels/harvardoxford_subcortical_labels.csv",\
       os.path.join(fsl_path,\
       "data/atlases/HarvardOxford/HarvardOxford-sub-maxprob-thr25-2mm.nii.gz")),\
-    "Jeulich Histological":("juelich_labels.csv",\
+    "Jeulich Histological":("atlas_labels/juelich_labels.csv",\
       os.path.join(fsl_path,\
       "data/atlases/Juelich/Juelich-maxprob-thr25-2mm.nii.gz")),\
-    "MNI Structural":("mni_labels.csv",\
+    "MNI Structural":("atlas_labels/mni_labels.csv",\
       os.path.join(fsl_path,\
-      "data/atlases/MNI/MNI-maxprob-thr25-2mm.nii.gz"))}
+      "data/atlases/MNI/MNI-maxprob-thr25-2mm.nii.gz")),
+    "Yeo-Krienen 7 networks":("atlas_labels/Yeo-Krienen_7_networks_labels.csv",\
+      "atlas_labels/Yeo7Liberal2mm_lables.nii.gz"),
+    "Yeo-Krienen 17 networks":("atlas_labels/Yeo-Krienen_17_networks_labels.csv",\
+      "atlas_labels/Yeo17Liberal2mm_lables.nii.gz")
+               }
 
     if len(sys.argv) < 4:
         print "number of arguements %d"%(len(sys.argv))
@@ -191,7 +196,7 @@ def main():
 
     atlases=defaultdict()
 
-    # read in the atlases 
+    # read in the atlases
     for k in atlas_cfg.keys():
         atlases[k]=read_and_conform_atlas(atlas_cfg[k][1],atlas_cfg[k][0],\
             parcels_img[:,:,:,0],parcels_nii.get_affine())
